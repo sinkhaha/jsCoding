@@ -18,6 +18,7 @@ function instanceOf(left, right) {
         } else if (left == prototype) {
             return true;
         }
+        // 循环获取左边的原型属性
         left = left.__proto__;
     }
 }
