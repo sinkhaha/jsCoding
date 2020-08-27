@@ -1,15 +1,20 @@
 
 /**
- * 
  * 链式调用
  * 
+ * 要求：输出eat，等待5s，再输出eat,再等待6s，再输出work
+ * 
+ * 如：
  * eat -> wait 5s -> eat -> wait 6s -> work
  */
 class Chain {
     constructor() {
         this.chain = Promise.resolve(this)
     }
-
+    /**
+     * 
+     * @param {*} time 
+     */
     sleep(time) {
         this.chain = this.chain.then((v) => {
             console.log('sleep');
@@ -21,6 +26,10 @@ class Chain {
         })
         return this;
     }
+
+    /**
+     * 
+     */
     eat() {
         this.chain = this.chain.then((v) => {
             console.log(`eat`)
@@ -28,6 +37,10 @@ class Chain {
         })
         return this
     }
+
+    /**
+     * 
+     */
     work() {
         this.chain = this.chain.then((v) => {
             console.log(`work`)
@@ -36,5 +49,6 @@ class Chain {
         return this
     }
 }
+
 const chain = new Chain();
 chain.eat().sleep(5).eat().sleep(6).work();
