@@ -2,8 +2,11 @@ const http = require('http');
 const url = require('url');
 const querystring = require('querystring');
 
+/**
+ * http实现get/post
+ */
 let method = {
-    // 获取get数据
+    // get方法
     GET: function getFn(req, res) {
         const requestData = url.parse(req.url, true);
         let urlPath = requestData.path;
@@ -15,7 +18,7 @@ let method = {
         res.write(log);
         res.end();
     },
-    // 获取post数据
+    // post方法，获取post数据
     POST: function postFn(req, res) {
         let dataStr = '';
         req.on('data', (chunk) => {
