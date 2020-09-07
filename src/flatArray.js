@@ -1,6 +1,6 @@
 // 数组扁平化
 
-// 方法一：递归
+// 变成一维数组 方法一：递归
 function flatArray1(arr = []) {
     let result = [];
 
@@ -17,3 +17,11 @@ function flatArray1(arr = []) {
 
 let arr = [1, 2, 3, [1, 2, [5], [1, 2, 3]]];
 console.log(flatArray1(arr)); // [ 1, 2, 3, 1, 2, 5, 1, 2, 3 ]
+
+// 方法二：利用toString() 扁平化数组
+function flatArray2(arr) {
+    // 先把多维数组先转换为字符串，再用逗号分隔符将字符串对象分割成字符串数组
+    return arr.toString().split(',').map(item => parseFloat(item));
+}
+console.log(flatArray2(arr)); // [ 1, 2, 3, 1, 2, 5, 1, 2, 3 ]
+
