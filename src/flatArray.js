@@ -25,3 +25,10 @@ function flatArray2(arr) {
 }
 console.log(flatArray2(arr)); // [ 1, 2, 3, 1, 2, 5, 1, 2, 3 ]
 
+// 方法三：利用JSON.stringify() 扁平化数组
+function flatArray3(arr) {
+    // 先序列化，替换掉数组的中括号，逗号分隔转成数组
+    return JSON.stringify(arr).replace(/(\[|\])/g, '').split(',').map(item=>parseFloat(item));
+}
+console.log(flatArray3(arr)); // [ 1, 2, 3, 1, 2, 5, 1, 2, 3 ]
+
