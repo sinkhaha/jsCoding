@@ -10,12 +10,15 @@
  * @param {*} properties
  */
 Object.myCreate = function(obj, properties) {
-    var F = function () { }
+    var F = function () {};
+
     F.prototype = obj;
     if (properties) {
         Object.defineProperties(F, properties);
     }
-    return new F();
+
+    return F;
 }
 
-Object.myCreate({}, { a: { value: 1 } }); // {a: 1}
+const obj = Object.myCreate(Object, { a: { value: 1 } }); 
+console.log(obj.a); // {a: 1}

@@ -20,16 +20,17 @@ Promise.all = function (promise) {
                 // 执行每一个promise
                 Promise.resolve(promises[i]).then(data => {
                     result[i] = data;
+                    index++;
                     // 所有promises状态都是fulfilled才返回
-                    if (++index === promises.length) {
+                    if (index === promises.length) {
                         resolve(result);
                     }
                 }, err => {
-                    reject(err);
-                    return;
+                    return reject(err);
                 });
             }
         }
 
     });
 }
+
