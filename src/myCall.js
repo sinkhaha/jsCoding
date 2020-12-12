@@ -12,12 +12,19 @@ Function.prototype.myCall = function(context) {
 
     // this 当前方法
     context.fn = this;
+    console.log(`this: ${this}`);
 
     // 获取参数，如此时是'going', 'eat'
     const args = [...arguments].slice(1);
     console.log(`args: ${args}`);
 
-    let result = context.fn(...args);
+    let result;
+    if (args) {
+        result = context.fn(...args);
+    } else {
+        result = context.fn();
+    }
+
     delete context.fn;
     return result;
 }
@@ -27,7 +34,7 @@ let printInfoFn = function(a, b) {
     // 'name going eat'
     console.log(this.name, a, b);
 }
-let person = { 
+let person = {
     name: 'name' 
 }
 printInfoFn.myCall(person, 'going', 'eat') 

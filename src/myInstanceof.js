@@ -8,8 +8,10 @@
  * @return
  */
 function instanceOf(left, right) {
-    let prototype = right.prototype; // 获取目标原型对象
+    // 获取目标原型对象
+    let prototype = right.prototype; 
   
+    // proto属性
     left = left.__proto__;
   
     while (true) {

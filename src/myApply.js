@@ -5,12 +5,12 @@
  */
 Function.prototype.myApply = function(context) {
     if (typeof context === 'object') {
-        context = context || window;
+        context = context;
     } else {
         context = Object.create(null);
     }
       
-    // 获取需要执行的函数
+    // 获取需要执行的函数,即this
     context.fn = this; 
     console.log(`this: ${this}`);
 

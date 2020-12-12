@@ -9,6 +9,7 @@ Function.prototype.myBind = function(context) {
     let args = [...arguments].slice(1);
     console.log(`args: ${args}`);
 
+    // 闭包
     return function() {
         let args1 = [...arguments];
         console.log(`args1: ${args1}`);

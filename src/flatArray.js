@@ -9,7 +9,7 @@ function flatArray1(arr = []) {
 
     arr.forEach((item) => {
         if (isArray(item)) {
-            result = result.concat(flatArray1(item, []));
+            result = result.concat(flatArray1(item));
         } else {
             result.push(item);
         }
@@ -20,7 +20,7 @@ function flatArray1(arr = []) {
 
 /**
  * 方法二：利用toString()
- * @param {*} arr 
+ * @param {*} arr 数组元素为数字
  */
 function flatArray2(arr) {
     // 先把多维数组先转换为字符串，再用逗号分隔符将字符串对象分割成字符串数组
@@ -29,7 +29,7 @@ function flatArray2(arr) {
 
 /**
  * 方法三：利用JSON.stringify()
- * @param {*} arr 
+ * @param {*} arr 数组元素为数字
  */
 function flatArray3(arr) {
     // 先序列化，替换掉数组的中括号，逗号分隔转成数组
