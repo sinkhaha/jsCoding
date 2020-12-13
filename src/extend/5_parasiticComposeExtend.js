@@ -1,5 +1,9 @@
 /**
- * 继承组合式继承
+ * 寄生组合式继承（最理想的方式）
+ * 
+ * 重点：通过寄生的方式来修复组“合式继承”的不足，完美的实现继承
+ * 
+ * 
  * @param {*} name 
  */
 function Super(name) {
@@ -7,18 +11,20 @@ function Super(name) {
     this.colors = ['red', 'blue'];
 };
 function Sub(name, age) {
+    // 重点：组合，继承父类的实例和属性
     Super.call(this, name);
     this.age = age;
 }
+
 Super.prototype.sayName = function () {
     return this.name;
 };
 
-// 我们封装其继承过程
+// 封装其继承过程
 function inheritPrototype(Sub, Super) {
-    // 以该对象为原型创建一个新对象
+    // 原型式继承，用原生的create
     var prototype = Object.create(Super.prototype);
-    prototype.constructor = Sub;
+    prototype.constructor = Sub; // 一定要修复构造函数指向问题
     Sub.prototype = prototype;
 }
 
@@ -28,6 +34,6 @@ Sub.prototype.sayAge = function () {
     return this.age;
 }
 
-var instance = new Sub('lee', 40);
-instance.sayName(); // lee
-instance.sayAge(); // 40
+var instance = new Sub('lisi', 40);
+console.log(instance.sayName()); // lisi
+console.log(instance.sayAge()); // 40

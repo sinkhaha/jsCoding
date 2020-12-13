@@ -1,4 +1,11 @@
-//定义类
+/**
+ * es6继承
+ * 
+ * class 相当于es5中构造函数
+ * class中定义方法时，全部定义在class的protopyte属性中
+ * class中只能定义方法，不能定义对象、变量等
+ * class和方法内默认都是严格模式
+ */
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -10,18 +17,20 @@ class Point {
     }
 }
 
-var point = new Point(10, 10);
-
 /**
- * es6的class继承
+ * 继承父类
  */
 class ColorPoint extends Point {
     constructor(x, y, color) {
-        super(x, y); // 调用父类的constructor(x, y)
+        // 继承父类的属性
+        super(x, y);
         this.color = color;
     }
 
     toString() {
-        return this.color + ' ' + super.toString(); // 调用父类的toString()
+        return this.color + ' ' + super.toString(); // 继承父类的toString()方法
     }
 }
+
+const colorPoint = new ColorPoint(1, 2, 'red');
+console.log(colorPoint.toString());
