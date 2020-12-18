@@ -11,7 +11,7 @@
  * @param {*} wait 
  */
 function debounce(func, wait = 300) {
-    var timeout = null;
+    let timeout = null;
     return function () {
         if (timeout !== null) {
             clearTimeout(timeout);

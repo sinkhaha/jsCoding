@@ -8,6 +8,7 @@
  */
 function throttle(func, delay) {
     let timer = null;
+    
     return function (...arg) {
         if (!timer) {
             timer = setTimeout(() => {
