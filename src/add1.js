@@ -1,11 +1,15 @@
 /**
- * 柯里化 实现一个add 函数
+ * 柯里化 
+ * 
+ * 实现一个add 函数
+ * 
  * @param {*} fn 
  * @param  {...any} args 
  */
 const curry = (fn, ...args) => {
-    console.log(args.length, fn.length)
-    // 函数的参数个数可以直接通过函数数的.length属性来访问
+    console.log(`length=${args.length},args=${args}`, fn.length);
+    
+    // 函数的参数个数可以直接通过"函数的.length"属性来访问
     return args.length >= fn.length
         // 传入的参数大于等于原始函数fn的参数个数，则直接执行该函数
         ? fn(...args)
@@ -22,7 +26,7 @@ function add1(x, y, z) {
 
 const add = curry(add1);
 
-console.log(add(1, 2, 3)); // 6
-console.log(add(1)(2)(3)); // 6
+// console.log(add(1, 2, 3)); // 6
+// console.log(add(1)(2)(3)); // 6
 console.log(add(1, 2)(3)); // 6
-console.log(add(1)(2, 3)); // 6
+// console.log(add(1)(2, 3)); // 6
