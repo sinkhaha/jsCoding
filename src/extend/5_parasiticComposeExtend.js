@@ -23,7 +23,7 @@ Super.prototype.sayName = function () {
 // 封装其继承过程
 function inheritPrototype(Sub, Super) {
     // 原型式继承，用原生的create
-    var prototype = Object.create(Super.prototype);
+    var prototype = Object.create(Super.prototype); // 执行Super的原型对象
     prototype.constructor = Sub; // 一定要修复构造函数指向问题
     Sub.prototype = prototype;
 }

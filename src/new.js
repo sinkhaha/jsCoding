@@ -14,6 +14,7 @@ function myNew() {
 
     newObj.__proto__ = constructor.prototype;
 
+    // 调用构造函数
     let result = constructor.apply(newObj, arguments);
     
     return Object.prototype.toString.call(result) === '[object Object]'
