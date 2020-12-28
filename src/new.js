@@ -1,21 +1,25 @@
 /**
- * 实现new
- * @param {*} constructor 构造方法
- * @param  {...any} args 
+ * new的实现原理
+ * 1. 创建一个空的临时对象
+ * 2. 链接对象:临时对象的原型属性指向构造函数的原型
+ * 3. 执行构造函数，并设置构造函数的this指向新的临时对象
+ * 4. 针对第3步构造函数的返回，如果其返回对象，则返回该对象，如果其返回不为对象，则返回新的临时对象（ 实际是返回一个空对象， new Object()就是返回一个空对象{} ）
+ *  
  */
-function myNew(constructor, ...args) {
-    // 构造新的空对象
+function myNew() {
     let newObj = {};
+
+    // 分离出第一个参数，即传入的构造函数
+    const constructor = [].shift.call(arguments);
+
     newObj.__proto__ = constructor.prototype;
 
-    let result = constructor.apply(newObj, args);
+    let result = constructor.apply(newObj, arguments);
     
-    // 构造函数是一个对象，则返回，否则返回新创建的对象
-    return result instanceof Object 
+    return Object.prototype.toString.call(result) === '[object Object]'
         ? result 
         : newObj;
 }
-
 
 function Person(name) {
     this.name = name;
