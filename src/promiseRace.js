@@ -1,5 +1,8 @@
 /**
  * promise的race实现
+ * 
+ * 列表里哪个结果获得的快，就返回那个结果，不管结果本身是成功状态还是失败状态
+ * 
  * @param {*} promise 
  */
 Promise.race = function (promise) {
