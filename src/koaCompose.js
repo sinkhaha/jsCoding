@@ -15,24 +15,42 @@
  * @param {*} middleware 
  */
 function compose(middleware) {
+    // 判断是否为数组，不是则抛出异常
+    if (!Array.isArray(middleware)) {
+        throw new TypeError('不是数组');
+    }
+    
+    // 判断 middleware 数组中的中间件是否为函数
+    for (const fn of middleware) {
+       if (typeof fn !== 'function') {
+            throw new TypeError('中间件不是方法')
+        }
+    }
+
     return function (context, next) {
 
         function dispatch(i) {
-            let fn = middleware[i]
+            // 获取第i个中间件
+            let fn = middleware[i];
+            
+            // 中间件执行结束，检查是否有传入next回调函数，此next并不是中间件执行的next参数
             if (i === middleware.length) {
                 fn = next;
             }
             
+            // 所有的返回都是Promise对象，Promise对象可以保证中间件和返回请求对象之间的执行顺序
             if (!fn) {
                 return Promise.resolve();
             }
             try {
+                // 执行第 i 个中间件，并传入第 i + 1 个中间件
                 return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
             } catch (err) {
                 return Promise.reject(err)
             }
         }
-
+        
+        // 从第1个中间件开始执行
         return dispatch(0);
     }
 }
