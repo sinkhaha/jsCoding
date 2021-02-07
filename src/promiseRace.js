@@ -13,8 +13,10 @@ Promise.race = function (promise) {
             Promise.resolve(promises[i]).then(data => {
                 // 出现第一个被resolve的直接resolve
                 resolve(data);
-            }, err => {
-                return reject(err)
+                return;
+            }).catch(err => {
+                reject(err);
+                return;
             });
         }
     });

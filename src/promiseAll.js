@@ -3,6 +3,10 @@
  * 
  * 仅考虑 promises 传入的是数组的情况时
  * 
+ * 1. 传入参数为一个空的可迭代对象，则直接进行 resolve
+ * 2. 如果参数中有一个promise 失败，那么 Promise.all 返回的 promise 对象失败
+ * 3. 在任何情况下，Promise.all 返回的 promise 的完成状态的结果都是一个数组
+ *
  * @param {*} promise 
  */
 Promise.all = function (promise) {
@@ -13,6 +17,7 @@ Promise.all = function (promise) {
         // 如果数组长度为0则返回空数组
         if (promises.length === 0) {
             resolve([]);
+            return;
         } else {
             let result = []; // 存放已成功的异步操作
             let index = 0; // 记录已成功的操作数
@@ -25,7 +30,7 @@ Promise.all = function (promise) {
                     if (index === promises.length) {
                         resolve(result);
                     }
-                }, err => {
+                }).catch(err => {
                     return reject(err);
                 });
             }
