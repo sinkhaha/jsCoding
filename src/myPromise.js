@@ -36,7 +36,7 @@ class MyPromise {
         }
         
         try {
-            // 传入resolve和reject
+            // 执行这个异步函数，传入resolve和reject
             exector(resolve, reject);
         } catch (e) {
             // 抛出错误
@@ -50,7 +50,7 @@ class MyPromise {
      * @param {*} onRejected 
      */
     then(onFulfilled, onRejected) {
-        // 转成方法
+        // 保证为函数
         onFulfilled = typeof onFulfilled === 'function' 
             ? onFulfilled 
             : value => value;
@@ -66,20 +66,22 @@ class MyPromise {
          * 1. 进行中的处理
          * 2. 成功的处理
          * 3. 拒绝的处理 
+         * 
+         * 返回新的promise对象
          */
         return new Promise((resolve, reject) => {
             // 1. 进行中的处理
             if (this.state === PENDING) {
                 self.resolvedCallbacks.push(() => {
                     try {
-                        // 模拟微任务
+                        // setTimeout模拟微任务
                         setTimeout(() => {
                             const result = onFulfilled(self.value);
                             // 分两种情况：
                             // 1. 回调函数返回值是Promise，执行then操作
                             // 2. 如果不是Promise，调用新Promise的resolve函数
                             result instanceof Promise 
-                               ? result.then(resolve, reject)
+                                ? result.then(resolve, reject)
                                 : resolve(result);
                         });
                     } catch (e) {

@@ -12,7 +12,7 @@ function instanceOf(left, right) {
     let prototype = right.prototype; 
   
     // proto属性
-    left = left.__proto__;
+    left = left.__proto__; // 或Object.getPrototypeOf(left)
   
     while (true) {
         if(left == null) {
@@ -21,7 +21,7 @@ function instanceOf(left, right) {
             return true;
         }
         // 循环获取左边的原型属性
-        left = left.__proto__;
+        left = left.__proto__; // 或Object.getPrototypeOf(left)
     }
 }
 

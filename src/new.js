@@ -16,9 +16,9 @@ function myNew() {
 
     // 调用构造函数
     let result = constructor.apply(newObj, arguments);
-    
+
     return Object.prototype.toString.call(result) === '[object Object]'
-        ? result 
+        ? result
         : newObj;
 }
 
@@ -28,3 +28,10 @@ function Person(name) {
 
 let person = myNew(Person, 'lisi');
 console.log(person.name);  // lisi
+
+// 或者实现如下
+function myNew2(fn, ...args) {
+    let instance = Object.create(fn.prototype);
+    let res = fn.apply(instance, args);
+    return typeof res === 'object' ? res : instance;
+}
