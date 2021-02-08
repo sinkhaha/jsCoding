@@ -27,16 +27,18 @@ function compose(middleware) {
         }
     }
 
-    return function (context, next) {
+    // next可以不要，context为上下文
+    // return function (context, next) {
+    return function (context) {
 
         function dispatch(i) {
             // 获取第i个中间件
             let fn = middleware[i];
             
             // 中间件执行结束，检查是否有传入next回调函数，此next并不是中间件执行的next参数
-            if (i === middleware.length) {
-                fn = next;
-            }
+            // if (i === middleware.length) {
+            //     fn = next;
+            // }
             
             // 所有的返回都是Promise对象，Promise对象可以保证中间件和返回请求对象之间的执行顺序
             if (!fn) {
@@ -54,3 +56,25 @@ function compose(middleware) {
         return dispatch(0);
     }
 }
+
+// const middleware_1 = async function (next) {
+//     console.log('middleware_1_1');
+//     await next();
+//     console.log('middleware_1_2');
+// }
+//
+// const middleware_2 = async function (next) {
+//     console.log('middleware_2_1');
+//     await next();
+//     console.log('middleware_2_2');
+// }
+//
+// /*
+// 打印出
+// middleware_1_1
+// middleware_2_1
+// middleware_2_2
+// middleware_1_2
+// */
+// compose([middleware_1, middleware_2])();
+
