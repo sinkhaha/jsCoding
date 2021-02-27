@@ -26,13 +26,16 @@ let method = {
         let dataStr = '';
         req.on('data', (chunk) => {
             dataStr += chunk;
-        })
+        });
+        
         req.on('end', () => {
             // 解析成对象
             let parseData = querystring.parse(dataStr);
-            console.log("parseData:", parseData);
-
-            res.write(new Buffer(dataStr));
+            console.log('parseData:', parseData);
+            
+            // 将缓冲的响应头信息和主体的第一个数据块发送给客户端，此时响应name=lin&age=25
+            res.write(Buffer.from(dataStr));
+            // 表明已发送所有响应头和主体，该服务器应该视为此消息已完成
             res.end();
         })
     }

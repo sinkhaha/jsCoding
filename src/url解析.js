@@ -9,14 +9,17 @@
  */
 function parseUrl(url) {
     // scheme://user:passwd@ 部分
-    let schemeStr = '(?:([^/?#]+))?//(?:([^:]*)(?::?(.*))@)?',
-    	// host:port path?query 部分
-        urlStr = '(?:([^/?#:]*):?([0-9]+)?)?([^?#]*)(\\?(?:[^#]*))?',
-    	// #fragment 部分
-    	fragmentStr = '(#(?:.*))'
+    // ?:patten是获取但是非匹配
+    let schemeStr = '(?:([^/?#]+))?//(?:([^:]*)(?::?(.*))@)?';
+    // host:port path?query 部分
+    let urlStr = '(?:([^/?#:]*):?([0-9]+)?)?([^?#]*)(\\?(?:[^#]*))?';
+    // #fragment 部分
+    let	fragmentStr = '(#(?:.*))';
         
-    let pattern = RegExp(`^${schemeStr}${urlStr}${fragmentStr}?`)
-    let matched = url.match(pattern) || []
+    let pattern = RegExp(`^${schemeStr}${urlStr}${fragmentStr}?`);
+    let matched = url.match(pattern) || [];
+
+    // console.log(matched);
     return {
     	protocol: matched[1], // 协议
     	username: matched[2], // 用户名
@@ -28,6 +31,18 @@ function parseUrl(url) {
     	hash: matched[8],     // 锚点
     }
 }
+
+console.log(parseUrl('http://www.baidu.com?name=lisi&age=20'));
+// {
+//     protocol: 'http:',
+//     username: undefined,
+//     password: undefined,
+//     hostname: 'www.baidu.com',
+//     port: undefined,
+//     pathname: '',
+//     search: '?name=lisi&age=20',
+//     hash: undefined
+// }
 
 /**
  * 或者直接用URL实现
@@ -46,3 +61,5 @@ function parseUrl2(url) {
         hash: urlObj.hash
     }
 }
+
+console.log(parseUrl2('https://www.baidu.com?name=lisi&age=20'));
