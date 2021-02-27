@@ -38,6 +38,29 @@ console.log(curryAddTest(1)(2)(3)(4)(5)()); // 15
 console.log('=================');
 
 
+/**
+ * 实现一个无限累加的函数，使用sum收集所有的累加项，使用valueOf进行计算
+ * @param  {...any} args 
+ */
+function sum(...args) {
+    const f = (...rest) => {
+        // 递归
+        return sum(...[...args, ...rest]);
+    }
+
+    // 统一计算
+    f.valueOf = () => {
+        return args.reduce((x, y) => x + y, 0);
+    }
+    
+    return f;
+}
+console.log(sum(1, 2, 3).valueOf()); // 6
+console.log(sum(1, 2)(3).valueOf()); // 6
+console.log(sum(1)(2)(3).valueOf()); // 6
+console.log(sum(1)(2, 3)(4).valueOf()); // 10
+console.log('=================');
+
 
 
 // 跟上面的类似，区别是把加法操作改成参数传入(自定义执行方法为乘法)
