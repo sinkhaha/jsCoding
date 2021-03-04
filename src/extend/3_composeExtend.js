@@ -32,6 +32,31 @@ Sub.prototype.sayAge = function () {
     return this.age;
 }
 
+Sub.prototype.weight = 100;
+
 var instance = new Sub('zhangsan', 30);
 console.log(instance.sayName()); // zhangsan  子类能调用父类原型上的方法
 console.log(instance.sayAge()); // 30
+console.log(instance.weight); // 100
+
+var instance2 = new Sub('lisi', 40);
+console.log(instance2.sayName()); // lisi  子类能调用父类原型上的方法
+console.log(instance2.sayAge()); // 40
+console.log(instance2.weight); 
+
+var super1 = new Super('wangwu');
+console.log(super1.name); // wangwu
+console.log(super1.colors); // [ 'red', 'blue' ]
+
+// 子类实例属性改变，不会影响其他实例
+console.log(instance.colors); // [ 'red', 'blue' ]
+instance.colors = ['yellow'];
+console.log(instance.colors); // [ 'yellow' ]
+console.log(instance2.colors); // [ 'red', 'blue' ] 不会影响instance2实例的属性
+console.log(super1.colors); // [ 'red', 'blue' ]
+
+// 子类实例改变原型属性，其他实例不会改变
+instance.weight = 120;
+console.log(instance.weight); // 120
+console.log(instance2.weight); // 100
+
