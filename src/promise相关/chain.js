@@ -9,8 +9,10 @@
  */
 class Chain {
     constructor() {
+        // chain是一个promise对象
         this.chain = Promise.resolve(this)
     }
+
     /**
      * 
      * @param {*} time 

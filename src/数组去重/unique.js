@@ -1,5 +1,5 @@
 /**
- * 数组去重
+ * 数组去重(数组可含有对象)
  * @param {*} arr 
  */
 function unique(arr) {
@@ -17,3 +17,11 @@ function unique(arr) {
         return true;
     });
 }
+
+let obj = { 
+    name: 'lisi',
+    hobby: [1, 2, 3],
+};
+let arr = [1, 2, 2, 3, 3, 4, 5, 6, obj, obj];
+console.log(unique(arr));
+

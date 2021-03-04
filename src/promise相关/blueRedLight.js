@@ -23,14 +23,18 @@ function sleep(delayTime, color) {
  */
 async function colorTest() {
     while (1) {
+        let startTime = Date.now();
         const red = await sleep(1000, '红');
-        console.log(`当前是 ${red} 灯`)
+        let redTime = Date.now();
+        console.log(`当前是 ${red} 灯 ${(redTime - startTime) / 1000}`)
 
         const green = await sleep(2000, '绿');
-        console.log(`当前是 ${green} 灯`)
+        let greenTime = Date.now();
+        console.log(`当前是 ${green} 灯 ${(greenTime - redTime) / 1000}`)
 
         const yellow = await sleep(3000, '黄');
-        console.log(`当前是 ${yellow} 灯`)
+        let yellowTime = Date.now();
+        console.log(`当前是 ${yellow} 灯 ${(yellowTime - greenTime) / 1000}`)
     }
 }
 

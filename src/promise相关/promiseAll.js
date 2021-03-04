@@ -18,22 +18,24 @@ Promise.all = function (promise) {
         if (promises.length === 0) {
             resolve([]);
             return;
-        } else {
-            let result = []; // 存放已成功的异步操作
-            let index = 0; // 记录已成功的操作数
-            for (let i = 0; i < promises.length; i++) {
-                // 执行每一个promise
-                Promise.resolve(promises[i]).then(data => {
-                    result[i] = data;
-                    index++;
-                    // 所有promises状态都是fulfilled才返回
-                    if (index === promises.length) {
-                        resolve(result);
-                    }
-                }).catch(err => {
-                    return reject(err);
-                });
-            }
+        }
+
+        let result = []; // 存放已成功的异步操作
+        let index = 0; // 记录已成功的操作数
+        for (let i = 0; i < promises.length; i++) {
+            // 执行每一个promise
+            Promise.resolve(promises[i]).then(data => {
+                result[i] = data;
+                index++;
+                // 所有promises状态都是fulfilled才返回
+                if (index === promises.length) {
+                    resolve(result);
+                    return;
+                }
+            }).catch(err => {
+                 reject(err);
+                 return;
+            });
         }
 
     });

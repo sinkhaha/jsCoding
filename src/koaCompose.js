@@ -57,24 +57,25 @@ function compose(middleware) {
     }
 }
 
+
+/*
+打印出
+middleware_1_1
+middleware_2_1
+middleware_2_2
+middleware_1_2
+*/
 // const middleware_1 = async function (next) {
 //     console.log('middleware_1_1');
 //     await next();
 //     console.log('middleware_1_2');
 // }
-//
+
 // const middleware_2 = async function (next) {
 //     console.log('middleware_2_1');
 //     await next();
 //     console.log('middleware_2_2');
 // }
-//
-// /*
-// 打印出
-// middleware_1_1
-// middleware_2_1
-// middleware_2_2
-// middleware_1_2
-// */
+
 // compose([middleware_1, middleware_2])();
 

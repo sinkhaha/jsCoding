@@ -4,6 +4,11 @@ class HashMap {
     this.table = new Array(size);
     this.size = 0;
   }
+
+  /**
+   * 哈希函数
+   * @param {*} value 
+   */
   hashConversion(value) {
     let keyCode = 0;
     for (let item of value) {
@@ -13,15 +18,30 @@ class HashMap {
     let key = keyCode % this.table.length;
     return key;
   }
+
+  /**
+   * 
+   * @param {*} value 
+   */
   set(value) {
     let key = this.hashConversion(value);
     this.size++;
     this.table[key] = value;
   }
+
+  /**
+   * 
+   * @param {*} value 
+   */
   get(value) {
     let key = this.hashConversion(value);
     return this.table[key];
   }
+
+  /**
+   * 
+   * @param {*} value 
+   */
   delete(value) {
     let key = this.hashConversion(value);
     if (this.table[key] !== undefined) {
@@ -32,10 +52,12 @@ class HashMap {
       return false;
     }
   }
+
   has(value) {
     let key = this.hashConversion(value);
     return this.table[key] !== undefined ? true : false;
   }
+  
   getAllData() {
     let result = [];
     for (let item of this.table) {
