@@ -27,25 +27,32 @@ function compose(middleware) {
         }
     }
 
-    // next可以不要，context为上下文
-    // return function (context, next) {
-    return function (context) {
-
+    // context为上下文，next可以不要，此next并不是中间件执行的next参数
+    return function (context, next) {
+        // 保存上一次执行的中间件，用于判断同一个中间件是否重复调用next方法
+        let index = -1;
+        
         function dispatch(i) {
+            // 同一个中间件重复调next报错
+            if (i <= index) 
+                return Promise.reject(new Error('next() called multiple times'));
+            
+            index = i;
+            
             // 获取第i个中间件
             let fn = middleware[i];
             
-            // 中间件执行结束，检查是否有传入next回调函数，此next并不是中间件执行的next参数
-            // if (i === middleware.length) {
-            //     fn = next;
-            // }
+            // 最后一个中间件调用next()时会执行该语句，不过此时传入的next是undefined
+            if (i === middleware.length) {
+                fn = next; // 如果没传next参数，直接 return Promise.resolve()即可
+            }
             
             // 所有的返回都是Promise对象，Promise对象可以保证中间件和返回请求对象之间的执行顺序
             if (!fn) {
                 return Promise.resolve();
             }
             try {
-                // 执行第 i 个中间件，并传入第 i + 1 个中间件
+                // 执行第 i 个中间件，并传入第 i + 1 个中间件，所以中间件中调用next()，就会执行dispatch.bind(null, i + 1)下一个中间件
                 return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
             } catch (err) {
                 return Promise.reject(err)
