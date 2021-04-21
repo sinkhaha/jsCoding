@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 /**
- * fs实现拷贝文件  利用fs.open
+ * fs实现拷贝文件  利用fs.open fs.read fs.write fs.close
  * 
  * 参考：http://www.inode.club/node/module_fs.html#%E5%AE%9E%E6%88%98%E8%AE%AD%E7%BB%83%EF%BC%9A
  * 
@@ -10,43 +10,61 @@ const fs = require('fs')
  * @param {*} src 
  * @param {*} dest 
  * @param {*} size 默认16k
- * @param {*} callback 
  */
-function copy(src, dest, size = 16 * 1024, callback) {
-    // 打开源文件
+function copy(src, dest, size = 16 * 1024) {
+    // 打开源文件，readFd是文件描述符
     fs.open(src, 'r', (err, readFd) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+
         // 打开目标文件
         fs.open(dest, 'w', (err, writeFd) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            // 分配缓冲区
             let buf = Buffer.alloc(size);
             let readed = 0; // 下次读取文件的位置
             let writed = 0; // 下次写入文件的位置
 
             (function next() {
-                // 读取
+                // 读取 buf是读取数据都写入该buf，0是buf中开始写入的偏移量，从readFd中读取size字节数，readed为从文件开始读取的位置
                 fs.read(readFd, buf, 0, size, readed, (err, bytesRead) => {
+                    // butesRead为实际读取的字节数
                     readed += bytesRead;
 
-                    // 如果都不到内容关闭文件
-                    if (!bytesRead) 
-                        fs.close(readFd, err => console.log('关闭源文件'));
+                    // 如果读不到内容关闭文件，当读取的字节数为0，则到达文件的末尾
+                    if (!bytesRead)
+                        fs.close(readFd, err => console.log('关闭读取源文件'));
 
                     // 写入
                     fs.write(writeFd, buf, 0, bytesRead, writed, (err, bytesWritten) => {
+                        if (err) {
+                            console.log('写入', err);
+                            return;
+                        }
                         // 如果没有内容了同步缓存，并关闭文件后执行回调
                         if (!bytesWritten) {
-                            fs.fsync(writeFd, err => {
-                                fs.close(writeFd, err => { 
-                                    return !err && callback()
-                                });
+                            fs.close(writeFd, err => {
+                                if (err) {
+                                    console.log('关闭文件错误', err);
+                                }
+                                console.log('关闭文件成功');
+                                return;
                             });
                         }
                         writed += bytesWritten;
 
-                        // 继续读取、写入
+                        // 递归继续读取然后写入
                         next();
                     });
                 });
             })();
+
         });
     });
 }
@@ -60,12 +78,7 @@ function test() {
     const BUFFER_SIZE = 3
 
     // 拷贝文件内容并写入
-    copy('6.txt', '7.txt', BUFFER_SIZE, () => {
-        fs.readFile('7.txt', 'utf8', (err, data) => {
-            // 拷贝完读取 7.txt 的内容
-            console.log(data) // 你好
-        })
-    })
+    copy('6.txt', '7.txt', BUFFER_SIZE);
 }
 
 test()
