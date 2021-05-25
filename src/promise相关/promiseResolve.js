@@ -11,17 +11,21 @@
  */
 Promise.resolve = (param) => {
     // 符合 1
-    if (param instanceof Promise) {
+    if (param && param instanceof Promise) {
         return param;
     }
-    return new Promise((resolve, reject) => {
-        // 符合 2
-        if (param && param.then && typeof param.then === 'function') { 
+
+    // 符合 2
+    if (param && param.then && typeof param.then === 'function') {
+        let then = param.then;
+        return new Promise((resolve, reject) => {
             // param 状态变为成功会调用resolve，将新 Promise 的状态变为成功，反之亦然
-            param.then(resolve, reject);
-        // 符合 3    
-        } else { 
-            resolve(param);
-        }
-    });
+            then(resolve, reject);
+        });
+        // 符合 3
+    } else if (param) {
+        return new Promise(resolve => resolve(param));
+    } else {
+        return new Promise(resolve => resolve());
+    }
 }

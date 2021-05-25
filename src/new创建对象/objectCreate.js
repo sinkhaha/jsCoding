@@ -1,4 +1,6 @@
 /**
+ * 简单版
+ * 
  * Object.create()方法会继承指定的原型对象的属性和方法去创建一个新的对象。
  * 该方法接收两个参数，
  * 第一个参数是这个新创建的对象的原型，
@@ -16,7 +18,7 @@
  * @param {*} properties
  */
 function myCreate(obj) {
-    var F = function () {};
+    var F = function () { };
 
     // 指向构造函数的原型，没有调用构造函数
     F.prototype = obj;
@@ -45,8 +47,28 @@ console.log(s2.name);
 console.log(s1.name == s2.name); // true
 
 var s3 = myCreate(Son.prototype); // 原型对象，myCreate方法里面没有调用Son的构造方法，所以不会继承Son实例的属性，所以是undefined
-var s4 = Object.create(Son.prototype); 
+var s4 = Object.create(Son.prototype);
 console.log(s3.name); // undefined
 console.log(s4.name); // undefined
 console.log(s3.name == s4.name); // false
 
+
+// 官方版Polyfill
+function myCreate2() {
+    if (typeof Object.create !== 'function') {
+        Object.create = function (proto, propertiesObject) {
+            if (typeof proto !== 'object' && typeof proto !== 'function') {
+                throw new TypeError('Object prototype may only be an Object: ' + proto);
+            } else if (proto === null) {
+                throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
+            }
+
+            if (typeof propertiesObject !== 'undefined') throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
+
+            function F() { }
+            F.prototype = proto;
+
+            return new F();
+        };
+    }
+}
