@@ -14,21 +14,21 @@ function parseUrl(url) {
     // host:port path?query 部分
     let urlStr = '(?:([^/?#:]*):?([0-9]+)?)?([^?#]*)(\\?(?:[^#]*))?';
     // #fragment 部分
-    let	fragmentStr = '(#(?:.*))';
-        
+    let fragmentStr = '(#(?:.*))';
+
     let pattern = RegExp(`^${schemeStr}${urlStr}${fragmentStr}?`);
     let matched = url.match(pattern) || [];
 
     // console.log(matched);
     return {
-    	protocol: matched[1], // 协议
-    	username: matched[2], // 用户名
-    	password: matched[3], // 密码
-    	hostname: matched[4], // 主机
-    	port: matched[5],     // 端口
-    	pathname: matched[6], // 路径
-    	search: matched[7],   // 查询字符串 queryString
-    	hash: matched[8],     // 锚点
+        protocol: matched[1], // 协议
+        username: matched[2], // 用户名
+        password: matched[3], // 密码
+        hostname: matched[4], // 主机
+        port: matched[5],     // 端口
+        pathname: matched[6], // 路径
+        search: matched[7],   // 查询字符串 queryString
+        hash: matched[8],     // 锚点
     }
 }
 
@@ -51,7 +51,7 @@ console.log(parseUrl('http://www.baidu.com?name=lisi&age=20'));
 function parseUrl2(url) {
     const urlObj = new URL(url)
     return {
-    	protocol: urlObj.protocol,
+        protocol: urlObj.protocol,
         username: urlObj.username,
         password: urlObj.password,
         hostname: urlObj.hostname,

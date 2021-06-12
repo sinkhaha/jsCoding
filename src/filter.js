@@ -7,7 +7,7 @@
 Array.prototype.filter = function (callbackFn, thisArg) {
     if (this === null || this === undefined)
         throw new TypeError(`Cannot read property 'filter' of ${this}`)
-    
+
     // 处理回调类型异常
     if (Object.prototype.toString.call(callbackFn) !== '[object Function]')
         throw new TypeError(`${callbackFn} is not a function`)
@@ -20,8 +20,8 @@ Array.prototype.filter = function (callbackFn, thisArg) {
     for (let i = 0; i < len; i++) {
         if (i in O) { // 原型链查找属性
             let element = O[i];
-            
-            if (callbackfn.call(thisArg, O[i], i, O)) 
+
+            if (callbackfn.call(thisArg, O[i], i, O))
                 res[resLen++] = element
         }
     }

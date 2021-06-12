@@ -3,7 +3,7 @@ const fs = require('fs');
 const { createInterface } = require('readline');
 
 /**
- * 
+ * readline读取大文件
  * @param {*} path 
  * @param {*} handler 
  */
@@ -22,7 +22,7 @@ async function processLineByLine(path, handler) {
         await once(rl, 'close');
 
         console.log('文件已处理');
-        
+
         return res;
     } catch (err) {
         console.error(err);

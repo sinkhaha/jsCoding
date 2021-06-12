@@ -3,20 +3,20 @@
  * 实现apply
  * @param {*} context 
  */
-Function.prototype.myApply = function(context) {
+Function.prototype.myApply = function (context) {
     if (typeof context === 'object') {
         context = context;
     } else {
         context = Object.create(null);
     }
-      
-    // 获取需要执行的函数,即this
-    context.fn = this; 
-    console.log(`this: ${this}`);
+
+    // 获取需要执行的函数，即this，此时this是testFn方法
+    context.fn = this;
+    console.log(`this对象是: ${this}`);
 
     // 获取参数
-    let args = [...arguments][1]; 
-    console.log(`args: ${args}`);
+    let args = [...arguments][1];
+    console.log(`args参数是: ${args}`); // args参数是: going,eat
 
     let result;
     if (args) {
@@ -29,10 +29,11 @@ Function.prototype.myApply = function(context) {
     return result;
 }
 
-// test
-let printInfoFn = function(a, b) {
-    // name going eat
+let testFn = function (a, b) {
     console.log(this.name, a, b);
 }
-let person = { name: 'name' }
-printInfoFn.myApply(person, ['going', 'eat']);
+
+// 测试，调用testFn，this指向persion对象
+let person = { name: 'lisi' }
+testFn.myApply(person, ['going', 'eat']); // 输出lisi going eat
+

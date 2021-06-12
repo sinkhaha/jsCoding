@@ -39,10 +39,7 @@ const curryingTest = commonCurrying(eat, '张三');
 curryingTest('苹果'); // 我叫 张三, 我吃 苹果
 curryingTest('西瓜'); // 我叫 张三, 我吃 西瓜
 
-console.log('=================');
-
-
-
+console.log('========1. 通用柯里化的实现（固化一个参数）=========');
 
 
 
@@ -97,12 +94,7 @@ console.log(curryThreeAddTest(1)(2)(3)); // 6
 console.log(curryThreeAddTest(1, 2)(3)); // 6
 console.log(curryThreeAddTest(1)(2, 3)); // 6
 
-console.log('=================');
-
-
-
-
-
+console.log('=========2. 高阶函数柯里化（如柯里化固定带有3个参数的加法函数）========');
 
 
 /**
@@ -143,12 +135,7 @@ console.log(curryAddTest(1)(2)(3)()); // 6
 console.log(curryAddTest(1, 2, 3)(4)()); // 10     
 console.log(curryAddTest(1)(2)(3)(4)(5)()); // 15
 
-console.log('=================');
-
-
-
-
-
+console.log('========3. 柯里化加法，参数的个数不固定=========');
 
 
 // 4. 跟第3种类似，区别是加法操作是当成参数传入(自定义执行方法)
@@ -192,5 +179,5 @@ console.log(curriedMultiply(2)()); // 2
 console.log(curriedMultiply(2, 3)(4)()); // 24
 console.log(curriedMultiply(2, 3)(4)(2)()); // 48
 
-console.log('=================');
+console.log('========4. 跟第3种类似，区别是加法操作是当成参数传入(自定义执行方法)=========');
 

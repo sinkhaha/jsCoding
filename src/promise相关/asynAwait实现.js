@@ -23,12 +23,12 @@ function myAsyncFunc(generator) {
     const next = (data) => {
         console.log(`data=${data}`);
         // 第二次执行，并接收第一次的请求结果 data
-        let { value, done } = iterator.next(data); 
+        let { value, done } = iterator.next(data);
         console.log(`value=${value} done=${done}`);
 
         // 执行完毕(到第三次)直接返回
         if (done) {
-            return; 
+            return;
         }
 
         // 第一次执行next时，yield返回的 promise实例 赋值给了 value

@@ -1,11 +1,15 @@
 /**
- * 柯里化加法，参数的个数不固定
+ * 柯里化加法，参数的个数“不固定”
  * 
  * 需求：实现一个add方法，使计算结果能够满足如下预期：
  * add(1)(2)(3) = 6;
  * add(1, 2, 3)(4) = 10;
  * add(1)(2)(3)(4)(5) = 15;
  * 
+ */
+/**
+ * 实现方式1
+ * @returns 
  */
 function curryAdd() {
     // 在外部维护一个数组保存传递的变量
@@ -30,15 +34,16 @@ function curryAdd() {
     // 返回一个闭包
     return _add;
 }
+console.log('========实现方式1=========');
 
 let curryAddTest = curryAdd();
 console.log(curryAddTest(1)(2)(3)()); // 6
 console.log(curryAddTest(1, 2, 3)(4)()); // 10     
 console.log(curryAddTest(1)(2)(3)(4)(5)()); // 15
-console.log('=================');
 
 
 /**
+ * 实现方式2
  * 实现一个无限累加的函数，使用sum收集所有的累加项，使用valueOf进行计算
  * @param  {...any} args 
  */
@@ -52,17 +57,16 @@ function sum(...args) {
     f.valueOf = () => {
         return args.reduce((x, y) => x + y, 0);
     }
-    
+
     return f;
 }
+console.log('========实现方式2=========');
 console.log(sum(1, 2, 3).valueOf()); // 6
 console.log(sum(1, 2)(3).valueOf()); // 6
 console.log(sum(1)(2)(3).valueOf()); // 6
 console.log(sum(1)(2, 3)(4).valueOf()); // 10
-console.log('=================');
 
-
-
+// 实现方式3
 // 跟上面的类似，区别是把加法操作改成参数传入(自定义执行方法为乘法)
 /**
  * 
@@ -100,8 +104,7 @@ function multiply(...args) {
 
 let curriedMultiply = currying(multiply);
 
+console.log('========实现方式3=========');
 console.log(curriedMultiply(2)()); // 2
 console.log(curriedMultiply(2, 3)(4)()); // 24
 console.log(curriedMultiply(2, 3)(4)(2)()); // 48
-
-

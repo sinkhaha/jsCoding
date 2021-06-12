@@ -105,7 +105,7 @@ const deepClone = (target, map = new WeakMap()) => {
     if (!isObject(target)) {
         return target;
     }
-        
+
     let type = getType(target);
     let cloneTarget;
     if (!canTraverse[type]) {
@@ -120,11 +120,11 @@ const deepClone = (target, map = new WeakMap()) => {
     if (map.get(target)) {
         return target;
     }
-        
+
     map.set(target, true);
 
     // 处理Map
-    if (type === mapTag) {  
+    if (type === mapTag) {
         target.forEach((item, key) => {
             cloneTarget.set(deepClone(key, map), deepClone(item, map));
         });

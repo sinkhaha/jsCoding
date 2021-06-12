@@ -1,7 +1,8 @@
 /**
  * 原型式继承
  * 
- * 重点：用一个函数包装一个对象，然后返回这个函数的调用，
+ * 重点：
+ * 用一个函数包装一个对象，然后返回这个函数的调用
  * 这个函数就变成了个可以随意增添属性的实例或对象
  * object.create()就是这个原理
  * 
@@ -16,18 +17,18 @@
  * @param {*} obj 
  */
 function create(obj) {
-    function F(){};
+    function F() { };
     F.prototype = obj; // 继承了传入的参数
     return new F();
 }
 
-var person = {
+let person = {
     name: 'lisi',
     friends: ['zhangsan', 'wangwu']
 };
 
-var anotherPerson = create(person);
-var anotherPerson2 = create(person);
+let anotherPerson = create(person);
+let anotherPerson2 = create(person);
 
 console.log(anotherPerson.name); // lisi 继承了父类函数的属性
 console.log(anotherPerson2.name); // lisi 继承了父类函数的属性，不是引用类型，不会改变

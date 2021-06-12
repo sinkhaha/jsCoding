@@ -9,6 +9,15 @@ function parseParam(url) {
     // 将字符串以 & 分割后存到数组中
     const paramsArr = paramsStr.split('&');
 
+    // [
+    //     'user=xiaoming',
+    //     'id=666',
+    //     'id=123456',
+    //     'city=%E5%8C%97%E4%BA%AC',
+    //     'enabled'
+    // ]
+    console.log('paramsArr', paramsArr);
+
     let paramsObj = {};
 
     // 将 params 存到对象中
@@ -23,13 +32,14 @@ function parseParam(url) {
             val = /^\d+$/.test(val)
                 ? parseFloat(val)
                 : val;
-            // 如果对象有 key，则添加一个值
+
+            // 如果对象有 key，则保存为数组形式
             if (paramsObj.hasOwnProperty(key)) {
                 paramsObj[key] = [].concat(paramsObj[key], val);
             } else { // 如果对象没有这个 key，创建 key 并设置值
                 paramsObj[key] = val;
             }
-        } else { // 处理没有 value 的参数
+        } else { // 处理没有 value 的参数，这里把没value的参数赋予true的值
             paramsObj[param] = true;
         }
     })

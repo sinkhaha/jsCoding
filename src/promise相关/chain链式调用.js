@@ -10,7 +10,7 @@
 class Chain {
     constructor() {
         // chain是一个promise对象
-        this.chain = Promise.resolve(this)
+        this.chain = Promise.resolve(this);
     }
 
     /**
@@ -23,7 +23,7 @@ class Chain {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     resolve(v)
-                }, time * 1000)
+                }, time * 1000);
             })
         })
         return this;
@@ -34,10 +34,10 @@ class Chain {
      */
     eat() {
         this.chain = this.chain.then((v) => {
-            console.log(`eat`)
-            return Promise.resolve(v)
+            console.log('eat')
+            return Promise.resolve(v);
         })
-        return this
+        return this;
     }
 
     /**
@@ -45,10 +45,10 @@ class Chain {
      */
     work() {
         this.chain = this.chain.then((v) => {
-            console.log(`work`)
-            return Promise.resolve(v)
+            console.log('work');
+            return Promise.resolve(v);
         })
-        return this
+        return this;
     }
 }
 

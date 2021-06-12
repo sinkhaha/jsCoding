@@ -1,13 +1,14 @@
 // 两个大数相加，用字符串来表示数据
 /**
- * 
+ * 实现1
  * 
  * @param {*} a1 
  * @param {*} a2 
  */
 function add1(a1, a2) {
     let maxLength = Math.max(a1.length, a2.length);
-    // 用0去补齐长度
+
+    // 在前面补充0，补齐长度为maxLength
     a1 = a1.padStart(maxLength, 0);
     a2 = a2.padStart(maxLength, 0);
 
@@ -36,6 +37,7 @@ console.log(add1('2', '199'));
 
 
 /**
+ * 实现2:转成数组相加
  * 
  * @param {*} num1 
  * @param {*} num2 

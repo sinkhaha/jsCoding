@@ -4,11 +4,11 @@
  * @param {*} hex 
  */
 function hex2int(hex) {
-    var len = hex.length;
-    var a = new Array(len);
-    var code;
+    let len = hex.length;
+    let a = new Array(len);
+    let code;
 
-    for (var i = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
         code = hex.charCodeAt(i);
         if (48 <= code && code < 58) {
             code -= 48;
@@ -17,6 +17,7 @@ function hex2int(hex) {
         }
         a[i] = code;
     }
+
     return a.reduce(function (acc, c) {
         acc = 16 * acc + c;
         return acc;
@@ -33,8 +34,8 @@ console.log(hex2int('1df')); // 479
  * @param {*} width 
  */
 function int2hex(num, width) {
-    var hex = '0123456789abcdef';
-    var s = ''
+    let hex = '0123456789abcdef';
+    let s = ''
     while (num) {
         s = hex.charAt(num % 16) + s;
         num = Math.floor(num / 16);
@@ -42,8 +43,9 @@ function int2hex(num, width) {
     if (typeof width === 'undefined' || width <= s.length) {
         return '0x' + s;
     }
-    var delta = width - s.length;
-    var padding = '';
+    
+    let delta = width - s.length;
+    let padding = '';
     while (delta-- > 0) {
         padding += '0';
     }

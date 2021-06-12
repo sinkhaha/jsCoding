@@ -1,4 +1,6 @@
 /**
+ * reduce的实现
+ * 
  * reduce的用法：
  * arr.reduce(function(prev, cur, index, arr){}, initialValue)
  * 
@@ -6,7 +8,7 @@
  * @param {*} initialValue 
  */
 Array.prototype.myReduce = function (fn, initialValue) {
-    let [val, idx] = initialValue 
+    let [val, idx] = initialValue
         ? [initialValue, 0]
         : [this[0], 1]; // 设置初始值
 

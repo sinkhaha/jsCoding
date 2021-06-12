@@ -1,8 +1,8 @@
 
 /**
- * 事件触发器实现
+ * emitter 事件机制实现
  */
- class MyEventEmitter {
+class MyEventEmitter {
     // 静态属性 默认设置最大监听数
     static defaultMaxListeners = 10;
 

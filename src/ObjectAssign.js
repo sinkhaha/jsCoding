@@ -1,6 +1,8 @@
 /**
  * 实现Object.assign方法
  * 
+ * assign方法是浅拷贝
+ * 
  * @param {*} target 
  * @param  {...any} source 
  * @returns 
@@ -21,6 +23,6 @@ Object.assign = function (target, ...source) {
             }
         }
     });
-    
+
     return ret;
 }

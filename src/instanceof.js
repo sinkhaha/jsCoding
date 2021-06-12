@@ -9,17 +9,18 @@
  */
 function instanceOf(left, right) {
     // 获取目标原型对象
-    let prototype = right.prototype; 
-  
+    let prototype = right.prototype;
+
     // proto属性
     left = left.__proto__; // 或Object.getPrototypeOf(left)
-  
+
     while (true) {
-        if(left == null) {
+        if (left == null) {
             return false;
         } else if (left == prototype) {
             return true;
         }
+        
         // 循环获取左边的原型属性
         left = left.__proto__; // 或Object.getPrototypeOf(left)
     }
@@ -27,4 +28,3 @@ function instanceOf(left, right) {
 
 console.log(instanceOf({}, Object));
 console.log(instanceOf(1, Number));
-

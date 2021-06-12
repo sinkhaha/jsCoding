@@ -3,7 +3,8 @@ const fs = require('fs')
 /**
  * fs实现拷贝文件  利用fs.open fs.read fs.write fs.close
  * 
- * 参考：http://www.inode.club/node/module_fs.html#%E5%AE%9E%E6%88%98%E8%AE%AD%E7%BB%83%EF%BC%9A
+ * 参考
+ * http://www.inode.club/node/module_fs.html#%E5%AE%9E%E6%88%98%E8%AE%AD%E7%BB%83%EF%BC%9A
  * 
  * 在 NodeJS 中进行文件操作，多次读取和写入时，一般一次读取数据大小为 64k，写入数据大小为 16k
  * 
@@ -39,7 +40,7 @@ function copy(src, dest, size = 16 * 1024) {
 
                     // 如果读不到内容关闭文件，当读取的字节数为0，则到达文件的末尾
                     if (!bytesRead)
-                        fs.close(readFd, err => console.log('关闭读取源文件'));
+                        fs.close(readFd, err => console.log('关闭读取源文件', err));
 
                     // 写入
                     fs.write(writeFd, buf, 0, bytesRead, writed, (err, bytesWritten) => {
@@ -75,10 +76,10 @@ function copy(src, dest, size = 16 * 1024) {
 
 function test() {
     // buffer 的长度
-    const BUFFER_SIZE = 3
+    const BUFFER_SIZE = 3;
 
     // 拷贝文件内容并写入
     copy('6.txt', '7.txt', BUFFER_SIZE);
 }
 
-test()
+test();

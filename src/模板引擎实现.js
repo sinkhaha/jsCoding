@@ -28,4 +28,4 @@ let data = {
     age: 18
 }
 // 我是小明，年龄18，性别undefined
-console.log(render(template, data)); 
+console.log(render(template, data));

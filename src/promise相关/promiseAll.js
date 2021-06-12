@@ -33,11 +33,10 @@ Promise.all = function (promise) {
                     return;
                 }
             }).catch(err => {
-                 reject(err);
-                 return;
+                reject(err);
+                return;
             });
         }
 
     });
 }
-

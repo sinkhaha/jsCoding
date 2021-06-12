@@ -1,5 +1,9 @@
 /**
- * 单独解析查询字符串 queryString
+ * 解析url的查询字符串 queryString
+ *
+ */
+/**
+ * 实现方式1
  * 
  * @param {*} url
  */
@@ -11,8 +15,8 @@ function parseQueryString(url) {
     // 把?号前面的替换成空格
     url = url.replace(/^.*\?/, '');
     const queryArr = url.split('&');
-    const result = {};
 
+    const result = {};
     queryArr.forEach(query => {
         let [key, value] = query.split('=');
         try {
@@ -20,7 +24,8 @@ function parseQueryString(url) {
             key = decodeURIComponent(key || ''); //.replace(/\+/g, ' ');
             value = decodeURIComponent(value || ''); // .replace(/\+/g, ' ');
         } catch (e) {
-            return console.log(e); // 非法字符不处理
+            console.log('解码错误', e);
+            throw e;
         }
 
         // key是数组或者是对象
@@ -28,7 +33,7 @@ function parseQueryString(url) {
 
         switch (type) {
             case 'ARRAY':
-                key = key.replace(/\[\]$/, '') // 对于形如 `list[]` 的解析成数组
+                key = key.replace(/\[\]$/, '') // 对于形如 [] 的解析成数组
                 if (!result[key]) {
                     result[key] = [value];
                 } else {
@@ -36,7 +41,7 @@ function parseQueryString(url) {
                 }
                 break;
             case 'JSON':
-                key = key.replace(/\{\}$/, '') // 对于形如 obj{} 的解析为对象
+                key = key.replace(/\{\}$/, '') // 对于形如 {} 的解析为对象
                 value = JSON.parse(value);
                 result.json = value;
                 break;
@@ -53,14 +58,15 @@ function parseQueryString(url) {
  * @param {*} key 
  */
 function getQueryType(key) {
-    if (key.endsWith('[]')) return 'ARRAY';
-    if (key.endsWith('{}')) return 'JSON';
+    if (key.endsWith('[]')) 
+        return 'ARRAY';
+    if (key.endsWith('{}')) 
+        return 'JSON';
     return 'DEFAULT';
 }
 
 // { 'name': 'lisi', age: '20', t: '1+1=2' }
 console.log(parseQueryString('http://www.baidu.com?name=lisi&age=20&t=1%2B1%3D2'));
-
 
 /**
  * 实现方法2：直接URLSearchParams实现
@@ -81,7 +87,7 @@ console.log(parseQueryString2('http://www.baidu.com?name=lisi&age=20'));
 
 
 /**
- * 实现3
+ * 实现方式3
  * @param {*} url 
  */
 function parseQueryString3(url) {

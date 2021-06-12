@@ -22,7 +22,7 @@ Promise.resolve = (param) => {
             // param 状态变为成功会调用resolve，将新 Promise 的状态变为成功，反之亦然
             then(resolve, reject);
         });
-        // 符合 3
+    // 符合 3
     } else if (param) {
         return new Promise(resolve => resolve(param));
     } else {

@@ -3,20 +3,20 @@
  * 实现call
  * @param {*} context 
  */
-Function.prototype.myCall = function(context) {
+Function.prototype.myCall = function (context) {
     if (typeof context === 'object') {
         context = context;
     } else {
         context = Object.create(null);
     }
 
-    // this 当前方法
+    // this是当前方法，此时this是testFn方法
     context.fn = this;
-    console.log(`this: ${this}`);
+    console.log(`this对象是: ${this}`);
 
-    // 获取参数，如此时是'going', 'eat'
+    // 获取参数，例如此时是'going', 'eat'
     const args = [...arguments].slice(1);
-    console.log(`args: ${args}`);
+    console.log(`args参数是: ${args}`);
 
     let result;
     if (args) {
@@ -29,12 +29,11 @@ Function.prototype.myCall = function(context) {
     return result;
 }
 
-// test
-let printInfoFn = function(a, b) {
-    // 'name going eat'
+let testFn = function (a, b) {
     console.log(this.name, a, b);
 }
 let person = {
-    name: 'name' 
+    name: 'lisi'
 }
-printInfoFn.myCall(person, 'going', 'eat') 
+// 测试
+testFn.myCall(person, 'going', 'eat'); // lisi going eat

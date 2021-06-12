@@ -9,13 +9,13 @@ class MyPromise {
     constructor(exector) {
         this.resolvedCallbacks = []; // 成功回调函数队列
         this.rejectedCallbacks = []; // 失败回调函数队列
-        
+
         // 初始状态
         this.state = PENDING;
 
         this.value = undefined;
         this.reason = undefined;
-        
+
         const resolve = value => {
             // 只有进行中状态的才能更改状态
             if (this.state === PENDING) {
@@ -30,11 +30,12 @@ class MyPromise {
             if (this.state === PENDING) {
                 this.state = REJECTED;
                 this.reason = reason;
-    
+
                 this.rejectedCallbacks.forEach(cb => cb(value));
             }
         }
-        
+
+        // 这里的异常捕获是重点
         try {
             // 执行这个异步函数，传入resolve和reject
             exector(resolve, reject);
@@ -51,14 +52,14 @@ class MyPromise {
      */
     then(onFulfilled, onRejected) {
         // 保证为函数
-        onFulfilled = typeof onFulfilled === 'function' 
-            ? onFulfilled 
+        onFulfilled = typeof onFulfilled === 'function'
+            ? onFulfilled
             : value => value;
-        
+
         onRejected = typeof onRejected === 'function'
             ? onRejected
-            : reason => { throw new Error(reason instanceof Error ? reason.message:reason) };
-        
+            : reason => { throw new Error(reason instanceof Error ? reason.message : reason) };
+
         // 保存this    
         const self = this;
 
@@ -80,7 +81,7 @@ class MyPromise {
                             // 分两种情况：
                             // 1. 回调函数返回值是Promise，执行then操作
                             // 2. 如果不是Promise，调用新Promise的resolve函数
-                            result instanceof Promise 
+                            result instanceof Promise
                                 ? result.then(resolve, reject)
                                 : resolve(result);
                         });
@@ -142,7 +143,7 @@ class MyPromise {
         // 是promise实例，直接返回，如果不是Promise实例，返回一个新的Promise对象，状态为FULFILLED
         return value instanceof Promise
             ? value
-            : new Promise((resolve, reject) => resolve(value)); 
+            : new Promise((resolve, reject) => resolve(value));
     }
 
     static reject(reason) {
@@ -152,7 +153,11 @@ class MyPromise {
     }
 }
 
-MyPromise.prototype.finally = function(callback) {
+/**
+ * finally方法实现
+ * @param {*} callback 
+ */
+MyPromise.prototype.finally = function (callback) {
     this.then(value => {
         return Promise.resolve(callback()).then(() => {
             return value;
@@ -163,5 +168,3 @@ MyPromise.prototype.finally = function(callback) {
         });
     });
 }
-
-  

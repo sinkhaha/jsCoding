@@ -7,7 +7,9 @@ function simpleDeepClone(source) {
         return source;
     }
 
-    let newObj = Array.isArray(source) ? [] : {}
+    let newObj = Array.isArray(source) 
+        ? [] 
+        : {};
 
     for (let key in source) {
         if (source.hasOwnProperty(key)) {
@@ -15,7 +17,7 @@ function simpleDeepClone(source) {
                 ? simpleDeepClone(source[key]) // 递归执行
                 : source[key]; // 不是对象和数组直接返回
         }
-    } 
+    }
 
     return newObj;
 }
@@ -47,4 +49,3 @@ console.log(source);
 console.log(source.info.hobby[2].count); // 2
 console.log(newObj);
 console.log(newObj.info.hobby[2].count); // 1
-

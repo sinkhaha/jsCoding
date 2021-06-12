@@ -5,12 +5,12 @@
  * @return {boolean} 
  */
 function isType(target, type) {
-    console.log(Object.prototype.toString.call(target));
+    console.log('Object.prototype.toString.call==', Object.prototype.toString.call(target));
     let targetType = Object.prototype.toString.call(target).slice(8, -1).toLowerCase();
     return targetType === type.toLowerCase();
 }
 
-console.log(isType(function() {}, 'function')); // true  [object Function]
+console.log(isType(function () { }, 'function')); // true  [object Function]
 console.log(isType(undefined, 'undefined')); // true  [object Undefined]
 console.log(isType(null, 'null')); // true  [object Null]
 console.log(isType(/\d+/, 'RegExp')); // true  [object RegExp]

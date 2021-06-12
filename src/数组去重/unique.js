@@ -12,16 +12,15 @@ function unique(arr) {
         if (appeard.has(id)) {
             return false;
         }
-        
+
         appeard.add(id);
         return true;
     });
 }
 
-let obj = { 
+let obj = {
     name: 'lisi',
     hobby: [1, 2, 3],
 };
 let arr = [1, 2, 2, 3, 3, 4, 5, 6, obj, obj];
 console.log(unique(arr));
-

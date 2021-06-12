@@ -1,15 +1,15 @@
 
-function SingleDog() {}
+function SingleDog() { }
 
 /**
  * 单例方法（利用闭包实现单例）
  */
-SingleDog.getInstance = (function() {
+SingleDog.getInstance = (function () {
     // 私有变量
     let instance = null;
-    
-    return function() {
-        if(!instance) {
+
+    return function () {
+        if (!instance) {
             // new出唯一实例
             instance = new SingleDog();
         }

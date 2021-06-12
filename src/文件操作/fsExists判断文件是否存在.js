@@ -5,11 +5,11 @@
 // 因为exists已经废弃，且它的回调函数第一个值是一个布尔值，表示文件是否存在，不是一个错误对象
 
 const fs = require('fs');
-const path = require('path');
 const util = require('util');
 const fsPromises = fs.promises;
 
 let myFile = 'test.txt';
+
 // 1.使用exists 已经过期
 fs.exists(myFile, (exists) => {
     console.log(exists ? 'exists 存在' : 'exists 不存在');
@@ -19,7 +19,6 @@ if (fs.existsSync(myFile)) {
     console.log('existsSync 存在');
 }
 
-
 // 2.使用fs.stat
 async function testStat1() {
     const stats = await util.promisify(fs.stat)(myFile)
@@ -28,9 +27,12 @@ async function testStat1() {
         });
     if (!stats) {
         return;
-    }    
-    console.log('testStat1 stats.isDirectory', stats.isDirectory()); // false 判断是否是一个目录
-    console.log('testStat1 stats.isFile', stats.isFile()); // true 判断是否是一个文件
+    }
+
+    // 判断是否是一个目录 false
+    console.log('testStat1 stats.isDirectory', stats.isDirectory());
+    // 判断是否是一个文件 true
+    console.log('testStat1 stats.isFile', stats.isFile());
 }
 testStat1();
 
@@ -41,9 +43,11 @@ async function testStat2() {
         });
     if (!stats) {
         return;
-    }       
-    console.log('testStat2 stats.isDirectory', stats.isDirectory()); // false 判断是否是一个目录
-    console.log('testStat2 stats.isFile', stats.isFile()); // true 判断是否是一个文件
+    }
+    // 判断是否是一个目录 false
+    console.log('testStat2 stats.isDirectory', stats.isDirectory());
+    // 判断是否是一个文件 true
+    console.log('testStat2 stats.isFile', stats.isFile());
 }
 testStat2();
 
@@ -82,12 +86,14 @@ fs.open(myFile, function (err, fd) {
         console.log('fs.open不存在', err);
         return;
     }
+
     console.log('fs.open 存在', fd);
+
     // 打开文件后需要关闭
-    fs.close(fd, function(e) {
+    fs.close(fd, function (e) {
         if (e) {
             return e;
         }
         console.log('关闭成功');
     });
-})
+});

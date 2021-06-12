@@ -19,10 +19,10 @@ function compose(middleware) {
     if (!Array.isArray(middleware)) {
         throw new TypeError('不是数组');
     }
-    
+
     // 判断 middleware 数组中的中间件是否为函数
     for (const fn of middleware) {
-       if (typeof fn !== 'function') {
+        if (typeof fn !== 'function') {
             throw new TypeError('中间件不是方法')
         }
     }
@@ -31,22 +31,22 @@ function compose(middleware) {
     return function (context, next) {
         // 保存上一次执行的中间件，用于判断同一个中间件是否重复调用next方法
         let index = -1;
-        
+
         function dispatch(i) {
             // 同一个中间件重复调next报错
-            if (i <= index) 
+            if (i <= index)
                 return Promise.reject(new Error('next() called multiple times'));
-            
+
             index = i;
-            
+
             // 获取第i个中间件
             let fn = middleware[i];
-            
+
             // 最后一个中间件调用next()时会执行该语句，不过此时传入的next是undefined
             if (i === middleware.length) {
                 fn = next; // 如果没传next参数，直接 return Promise.resolve()即可
             }
-            
+
             // 所有的返回都是Promise对象，Promise对象可以保证中间件和返回请求对象之间的执行顺序
             if (!fn) {
                 return Promise.resolve();
@@ -58,7 +58,7 @@ function compose(middleware) {
                 return Promise.reject(err)
             }
         }
-        
+
         // 从第1个中间件开始执行
         return dispatch(0);
     }
@@ -85,4 +85,3 @@ middleware_1_2
 // }
 
 // compose([middleware_1, middleware_2])();
-

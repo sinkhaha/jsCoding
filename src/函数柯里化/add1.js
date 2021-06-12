@@ -1,4 +1,4 @@
-// 高阶函数柯里化（如柯里化固定带有3个参数的加法函数）
+// 高阶函数柯里化（如柯里化“固定”带有3个参数的加法函数）
 // 
 // 需求：实现一个add方法，使计算结果能够满足如下预期：
 // curryAdd(1, 2, 3) // 6
@@ -11,7 +11,7 @@
  */
 function curryThreeAdd(fn, currArgs) {
     return function () {
-        // 类数组对象数组化
+        // 类数组对象arguments进行数组化
         let args = Array.prototype.slice.call(arguments);
 
         // 第一次调用时，currArgs是undefined
@@ -29,6 +29,7 @@ function curryThreeAdd(fn, currArgs) {
         return fn.apply(null, args);
     }
 }
+
 /**
  * 实际执行的加法函数
  * @param {*} x 
@@ -48,6 +49,3 @@ console.log(curryThreeAddTest(1, 2, 3)); // 6
 console.log(curryThreeAddTest(1)(2)(3)); // 6
 console.log(curryThreeAddTest(1, 2)(3)); // 6
 console.log(curryThreeAddTest(1)(2, 3)); // 6
-
-
-

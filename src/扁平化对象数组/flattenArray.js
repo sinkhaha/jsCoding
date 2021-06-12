@@ -24,7 +24,9 @@ function flatArray1(arr = []) {
  */
 function flatArray2(arr) {
     // 先把多维数组先转换为字符串，再用逗号分隔符将字符串对象分割成字符串数组
-    return arr.toString().split(',').map(item => parseFloat(item));
+    return arr.toString()
+        .split(',')
+        .map(item => parseFloat(item));
 }
 
 /**
@@ -33,7 +35,10 @@ function flatArray2(arr) {
  */
 function flatArray3(arr) {
     // 先序列化，替换掉数组的中括号，逗号分隔转成数组
-    return JSON.stringify(arr).replace(/(\[|\])/g, '').split(',').map(item=>parseFloat(item));
+    return JSON.stringify(arr)
+        .replace(/(\[|\])/g, '')
+        .split(',')
+        .map(item => parseFloat(item));
 }
 
 /**
