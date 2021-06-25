@@ -15,6 +15,7 @@
  */
 function debounce(func, wait = 300) {
     let timeout = null;
+    
     return function () {
         // 防抖重在清零
         if (timeout !== null) {

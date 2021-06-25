@@ -20,11 +20,11 @@ Function.prototype.myBind = function (context) {
     }
 }
 
-function testFn(m, n, o) {
-    console.log(this.name + ' ' + m + ' ' + n + ' ' + o);
-}
 let person = {
     name: 'zhangsan'
 };
+function testFn(m, n, o) {
+    console.log(this.name + ' ' + m + ' ' + n + ' ' + o);
+}
 // 测试，调用testFn参数，this指向person对象
 testFn.myBind(person, 7, 8)(9); // zhangsan 7 8 9

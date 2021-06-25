@@ -9,6 +9,7 @@ function flatArray1(arr = []) {
 
     arr.forEach((item) => {
         if (isArray(item)) {
+            // 递归
             result = result.concat(flatArray1(item));
         } else {
             result.push(item);
@@ -47,6 +48,7 @@ function flatArray3(arr) {
  */
 function flatArray4(arr) {
     return arr.reduce((pre, cur) => {
+        // 递归
         return pre.concat(isArray(cur) ? flatArray4(cur) : cur);
     }, []);
 }

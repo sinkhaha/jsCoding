@@ -6,7 +6,7 @@
  * 节流重在加锁
  * 
  * 应用场景：
- * 1. sroll事件，每隔1s计算一次位置信息等
+ * 1. scroll事件，每隔1s计算一次位置信息等
  * 2. 浏览器播放事件，每隔1s计算一次进度信息等
  * 3. input框实时搜索并发送请求展示下拉列表，每隔1s发送一次请求
  * 
@@ -21,11 +21,11 @@ function throttle(func, delay) {
         if (timer) {
             return;
         }
+        
         timer = setTimeout(() => {
             func.apply(this, arg);
             timer = null;
         }, delay);
-
     }
 }
 

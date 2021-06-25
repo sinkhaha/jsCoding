@@ -7,8 +7,8 @@ function simpleDeepClone(source) {
         return source;
     }
 
-    let newObj = Array.isArray(source) 
-        ? [] 
+    let newObj = Array.isArray(source)
+        ? []
         : {};
 
     for (let key in source) {

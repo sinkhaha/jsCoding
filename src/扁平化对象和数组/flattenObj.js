@@ -2,6 +2,7 @@
  * 扁平化对象
  * 
  * 递归
+ * 
  * @param {*} obj 
  */
 function flatten(obj) {
@@ -9,7 +10,7 @@ function flatten(obj) {
 
     function recurse(src, prop) {
         let toString = Object.prototype.toString;
-        // 是对象
+        // 对象处理
         if (toString.call(src) == '[object Object]') {
             let isEmpty = true;
             for (let p in src) {
@@ -19,7 +20,7 @@ function flatten(obj) {
             if (isEmpty && prop) {
                 result[prop] = {};
             }
-        // 是数组    
+            // 数组处理
         } else if (toString.call(src) == '[object Array]') {
             let len = src.length;
             if (len > 0) {

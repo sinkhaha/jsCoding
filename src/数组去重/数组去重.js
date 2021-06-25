@@ -9,20 +9,24 @@ function unique2(arr) {
     return arr.filter((item) => !last.has(item) && last.set(item, 1));
 }
 
-// 方式3：双层循环
+// 方式3
 function unique3(arr) {
-    let res = []
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = 0, len = res.length; j < len; j++) {
-            if (arr[i] === res[j])
-                break;
-            if (j === len) res.push(arr[i]);
+    let idSet = new Set();
+
+    return arr.filter(item => {
+        // 创建一个可以唯一标识对象的字符串id
+        let id = item + JSON.stringify(item);
+
+        if (idSet.has(id)) {
+            return false;
         }
-    }
-    return res;
+
+        idSet.add(id);
+        return true;
+    });
 }
 
-// 方式4：indexof
+// 方式4：indexOf
 function unique4(arr) {
     let res = []
     for (let i = 0; i < arr.length; i++) {
@@ -48,3 +52,15 @@ function unique6(arr) {
         return !index || item !== arr[index - 1];
     });
 }
+
+let obj = {
+    name: 'lisi',
+    hobby: [1, 2, 3],
+};
+let arr = [1, 2, 2, 3, 3, 4, 5, 6, obj, obj];
+console.log(unique1(arr));
+console.log(unique2(arr));
+console.log(unique3(arr));
+console.log(unique4(arr));
+console.log(unique5(arr));
+console.log(unique6(arr));

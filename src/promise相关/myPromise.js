@@ -103,7 +103,7 @@ class MyPromise {
                         reject(e);
                     }
                 });
-            // 2. 成功的处理
+                // 2. 成功的处理
             } else if (this.stae === FULFILLED) {
                 try {
                     setTimeout(() => {
@@ -115,7 +115,7 @@ class MyPromise {
                 } catch (e) {
                     reject(e);
                 }
-            // 3. 拒绝的处理    
+                // 3. 拒绝的处理    
             } else if (this.state === REJECTED) {
                 try {
                     setTimeout(() => {
@@ -164,7 +164,7 @@ MyPromise.prototype.finally = function (callback) {
         })
     }, error => {
         return Promise.resolve(callback()).then(() => {
-            throw error
+            throw error;
         });
     });
 }

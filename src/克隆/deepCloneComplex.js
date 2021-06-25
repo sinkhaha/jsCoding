@@ -1,14 +1,3 @@
-/**
- * 获取类型
- * @param {*} obj 
- */
-const getType = obj => Object.prototype.toString.call(obj);
-
-/**
- * 判断是否是对象
- * @param {*} target 
- */
-const isObject = (target) => (typeof target === 'object' || typeof target === 'function') && target !== null;
 
 /**
  * 可以递归的类型
@@ -30,6 +19,18 @@ const dateTag = '[object Date]';
 const errorTag = '[object Error]';
 const regexpTag = '[object RegExp]';
 const funcTag = '[object Function]';
+
+/**
+ * 获取类型
+ * @param {*} obj 
+ */
+const getType = obj => Object.prototype.toString.call(obj);
+
+/**
+ * 判断是否是对象
+ * @param {*} target 
+ */
+const isObject = (target) => (typeof target === 'object' || typeof target === 'function') && target !== null;
 
 /**
  * 处理正则对象
