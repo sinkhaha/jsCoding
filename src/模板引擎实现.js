@@ -5,16 +5,16 @@
  * @returns 
  */
 function render(template, data) {
-    // 模板字符串正则
+    // 模板字符串正则 匹配{{name}}格式
     const reg = /\{\{(\w+)\}\}/;
 
-    // 判断模板里是否有模板字符串
+    // 模板里有模板字符串
     if (reg.test(template)) {
-        // 查找当前模板里第一个模板字符串的字段
+        // 提取当前模板里的字符串变量名
         const name = reg.exec(template)[1];
         // 将第一个模板字符串渲染
         template = template.replace(reg, data[name]);
-        // 递归的渲染并返回渲染后的结构
+        // 递归的替换
         return render(template, data);
     }
 

@@ -6,6 +6,7 @@
  */
 function isType(target, type) {
     console.log('Object.prototype.toString.call==', Object.prototype.toString.call(target));
+    
     let targetType = Object.prototype.toString.call(target).slice(8, -1).toLowerCase();
     return targetType === type.toLowerCase();
 }

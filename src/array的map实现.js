@@ -23,6 +23,6 @@ Array.prototype.map = function (callbackFn, thisArg) {
             A[k] = mappedValue;
         }
     }
-    
+
     return A;
 }

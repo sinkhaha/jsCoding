@@ -1,5 +1,5 @@
 /**
- * 16进制的字符串转成十进制整数
+ * 16进制的字符串转成10进制整数
  * 
  * @param {*} hex 
  */
@@ -28,7 +28,7 @@ console.log(hex2int('1df')); // 479
 
 
 /**
- * 十进制转十六进制
+ * 10进制转16进制
  * 
  * @param {*} num 
  * @param {*} width 
@@ -43,7 +43,7 @@ function int2hex(num, width) {
     if (typeof width === 'undefined' || width <= s.length) {
         return '0x' + s;
     }
-    
+
     let delta = width - s.length;
     let padding = '';
     while (delta-- > 0) {

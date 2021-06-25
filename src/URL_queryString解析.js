@@ -58,9 +58,9 @@ function parseQueryString(url) {
  * @param {*} key 
  */
 function getQueryType(key) {
-    if (key.endsWith('[]')) 
+    if (key.endsWith('[]'))
         return 'ARRAY';
-    if (key.endsWith('{}')) 
+    if (key.endsWith('{}'))
         return 'JSON';
     return 'DEFAULT';
 }

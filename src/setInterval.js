@@ -13,5 +13,4 @@ function myInterval(fn, interval, ...args) {
     }, interval);
 }
 
-
 myInterval((num) => console.log(num), 2000, 1);
