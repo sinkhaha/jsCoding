@@ -45,7 +45,7 @@ function myAsyncFunc(generator) {
 function* myGenerator() {
     let data = yield readFile('test1.js');
     data = yield readFile(data + 'test2.js');
-    console.log(`data是${data}`); // data是test1.jstest2.js
+    console.log(`data是${data}`); // data是test1.js test2.js
     return data;
 };
 

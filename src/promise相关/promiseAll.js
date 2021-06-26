@@ -32,6 +32,7 @@ Promise.all = function (promise) {
                     resolve(result);
                     return;
                 }
+            // 失败的时候则返回最先被reject失败状态的值    
             }).catch(err => {
                 reject(err);
                 return;

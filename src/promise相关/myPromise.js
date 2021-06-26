@@ -6,7 +6,7 @@ const FULFILLED = 'FULFILLED';  // 已成功
 const REJECTED = 'REJECTED';    // 已失败
 
 class MyPromise {
-    constructor(exector) {
+    constructor(executor) {
         this.resolvedCallbacks = []; // 成功回调函数队列
         this.rejectedCallbacks = []; // 失败回调函数队列
 
@@ -38,7 +38,7 @@ class MyPromise {
         // 这里的异常捕获是重点
         try {
             // 执行这个异步函数，传入resolve和reject
-            exector(resolve, reject);
+            executor(resolve, reject);
         } catch (e) {
             // 抛出错误
             reject(e);
@@ -104,7 +104,7 @@ class MyPromise {
                     }
                 });
                 // 2. 成功的处理
-            } else if (this.stae === FULFILLED) {
+            } else if (this.state === FULFILLED) {
                 try {
                     setTimeout(() => {
                         const result = onFulfilled(self.value);
